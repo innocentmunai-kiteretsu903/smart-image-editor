@@ -44,17 +44,18 @@ Another instance is to perform standardization on independent variable
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train) X_test = sc_X.transform(X_test)
+```
 
  
- Then, we need to train the set with different algorithm. One example is Random Forest
- ```python
+Then, we need to train the set with different algorithm. One example is Random Forest
+```python
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators = 50, criterion = 'entropy', n_jobs = 8)
 classifier.fit(X_train, y_train)
 ```
 
 We also need to calculate confusion matrix to different models, e.g.:
- ```python
+```python
 from sklearn.metrics import confusion_matrix 
 cm_RF = confusion_matrix(y_test, y_pred)
 ```
