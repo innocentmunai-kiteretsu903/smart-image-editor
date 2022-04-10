@@ -11,7 +11,7 @@ Bozen and I are planning to provide a user interface (maybe a Python-based web a
 - We will provide the users with some help to preprocess their dataset. 
 - We then train the preprocessed datasets by different algorithm, such as linear regression, Support Vector Regression, Decision Tree Regression, Random Forest Regression, and so on. 
 - We allow the user to customize their preferable parameters for the trainings before implementaing those. 
-- After we finish the trainings by different algorithms, we test these by test set and calculate confusion matrices foreach model trained. 
+- After we finish the trainings by different algorithms, we test these by test set and calculate confusion matrices for each model trained. 
 - We present the models as well as the accuracy of each to the user so that they can choose to use those models based on the performance.
 
 **The libries needed**
