@@ -61,4 +61,4 @@ cm_RF = confusion_matrix(y_test, y_pred)
 ```
 
 An example of outputted confusion matrix for one model:
-<img width="501" alt="Snipaste_2022-04-10_16-36-48" src="https://user-images.githubusercontent.com/42286547/162638796-9ac3257b-9702-4b24-bc09-56bd5f9a80d6.png">
+- <img width="501" alt="Snipaste_2022-04-10_16-36-48" src="https://user-images.githubusercontent.com/42286547/162638796-9ac3257b-9702-4b24-bc09-56bd5f9a80d6.png">
