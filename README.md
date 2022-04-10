@@ -14,10 +14,10 @@ Bozen and I are planning to provide a user interface (maybe a Python-based web a
 - After we finish the trainings by different algorithms, we test these by test set and calculate confusion matrices for each model trained. 
 - We present the models as well as the accuracy of each to the user so that they can choose to use those models based on the performance.
 
-##The libries needed
+## The libries needed
 numpy, scikit-learn, pandas, glob, os, etc
 
-##Some sample codes
+## Some sample codes
 First, we will provide the users with some help to preprocess their dataset:
 
 For instance, label normalization:
