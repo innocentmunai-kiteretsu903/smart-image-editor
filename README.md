@@ -43,7 +43,7 @@ May 1 - 3 : Discuss with Karly and start improvements (if any)
 May 3: Submission
 
 ## current progress
-What we have accomplished:  
+What we have accomplished:
 0. major changes compared to previous submission
 1. played with the libraries needed; generally determined what we need
 2. individually tested on demo functions for some of the image processing features
