@@ -6,10 +6,10 @@ Final project for Harvard's CS32
 2. Innocent Munai
 
 ## Major changes from previous submission
-We have talked about our idea and plan with Karly. Based on the discussion, we have decided to make a GUI for the user to edit pictures with some machine learning-powered capability (if possible). For the GUI, we plan to empower the 
+We have talked about our idea and plan with Karly. Based on the discussion, we have decided to make a GUI for the user to edit pictures with some machine learning-powered capability (if possible). 
 
 ## introduction
-Bozen and I are planning to create a picture editor with a GUI.
+We are planning to create a picture editor with a GUI.
 
 Generally, we plan to provide the following features (may not include all of them):
 
