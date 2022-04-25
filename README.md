@@ -13,20 +13,20 @@ Bozen and I are planning to create a picture editor with a GUI.
 
 Generally, we plan to provide the following features (may not include all of them):
 
-**Basic adjustment**
+**Basic adjustment**  
 1. Brightness
 2. Contrast
 3. Saturation
 4. Crop
 5. Rotate
 
-**Filter**
+**Filter**  
 e.g. Black and while; blurred...
 
-**Machine learning**
+**Machine learning**  
 e.g enlarge the picture while preseving the quality
 
-**Encryption and sharing**
+**Encryption and sharing**  
 Encrypt the output image; share by email.
 
 ## The libries needed
@@ -37,8 +37,15 @@ Encrypt the output image; share by email.
 5. Crypto, binascii. for encryption
 
 ## timeline
-1. April 24 - 27: learn libraries
-2. April 28 - 30: finish the first version
-3. May 1 - 3 : Discuss with Karly and start improvements (if any)
-4. May 3: Submission
+April 24 - 27: learn libraries  
+April 28 - 30: finish the first version  
+May 1 - 3 : Discuss with Karly and start improvements (if any)  
+May 3: Submission
+
+## current progress
+What we have accomplished:  
+0. major changes compared to previous submission
+1. played with the libraries needed; generally determined what we need
+2. individually tested on demo functions for some of the image processing features
+3. found the resources to learn the libraries sufficiently for our project
 
