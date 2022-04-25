@@ -37,8 +37,8 @@ Encrypt the output image; share by email.
 5. Crypto, binascii. for encryption
 
 ## timeline
-April 24 - 27: learn libraries
-April 28 - 30: finish the first version
-May 1 - 3 : Discuss with Karly and start improvements (if any)
-May 3: Submission
+.April 24 - 27: learn libraries
+.April 28 - 30: finish the first version
+.May 1 - 3 : Discuss with Karly and start improvements (if any)
+.May 3: Submission
 
