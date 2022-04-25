@@ -44,8 +44,8 @@ May 3: Submission
 
 ## current progress
 What we have accomplished:
-0. major changes compared to previous submission
-1. played with the libraries needed; generally determined what we need
-2. individually tested on demo functions for some of the image processing features
-3. found the resources to learn the libraries sufficiently for our project
+1. major changes compared to previous submission
+2. played with the libraries needed; generally determined what we need
+3. individually tested on demo functions for some of the image processing features
+4. found the resources to learn the libraries sufficiently for our project
 
