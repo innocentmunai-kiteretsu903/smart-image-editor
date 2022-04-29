@@ -2,6 +2,15 @@ import numpy as np
 import cv2
 
 
+def grayscale(opened_image):
+    """
+    ????
+    """
+    img = np.array(opened_image.convert("RGB"))
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    return gray_image
+
+
 def sepia(opened_image):
     """
     ?????
