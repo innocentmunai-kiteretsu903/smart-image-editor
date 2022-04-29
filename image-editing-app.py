@@ -4,7 +4,7 @@ from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
 
 from detections import detect_eyes, detect_faces
-from filters import sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
+from filters import grayscale, sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
 
 
 def main():
@@ -33,20 +33,12 @@ def main():
             st.image(opened_image) #display the image
 
             #create buttons
-            enhanceoptions = ["Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
+            enhanceoptions = ["Original", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions) #options on sidebar
 
 
-            #GRAY_SCALE
-            if enhance_type == "Gray-scale": 
-                img = np.array(opened_image.convert("RGB"))
-                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-                st.text("Gray-scale image")
-                st.image(gray)
-
             #CONTRAST
-            elif enhance_type == "Contrast": 
+            if enhance_type == "Contrast": 
                 rate = st.sidebar.slider("Contrast", 0.1, 10.0, 1.0)
                 enhancer = ImageEnhance.Contrast(opened_image)
                 contrast_img = enhancer.enhance(rate) #take the rate selected
@@ -74,18 +66,18 @@ def main():
 
             #Auto Detail Enhance
             elif enhance_type == "Auto Detail Enhance": 
-                #new_img = np.array(opened_image.convert("RGB"))
-                #autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
-                #st.image(autoe)
-
                 st.image(auto_enhance(opened_image))
         
 
         #create selectbox "Filters"
-        filters = ["Cartoon", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
+        filters = ["Gray-scale", "Cartoon", "Cannize", "Sepia",
+                   "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
         feature_choice = st.sidebar.selectbox("Filters", filters)
         if st.sidebar.button("Apply the filter"):
-            if feature_choice == "Cartoon":
+            if feature_choice == "Gray-scale":
+                result_img = grayscale(opened_image)
+                st.image(result_img)
+            elif feature_choice == "Cartoon":
                 result_img = cartoon(opened_image)
                 st.image(result_img)
             elif feature_choice == "Cannize":
@@ -114,6 +106,7 @@ def main():
         #create selectbox "AI Detection"
         tasks = ["Faces", "Eyes"]
         feature_choice = st.sidebar.selectbox("AI Detection", tasks)
+
         if st.sidebar.button("Start Detection"):
             if feature_choice == "Faces":
                 result_img, result_face = detect_faces(opened_image)
@@ -123,7 +116,6 @@ def main():
                 result_img, result_eye = detect_eyes(opened_image)
                 st.image(result_img)
                 st.success("Found {} eyes".format(len(result_eye)))
-
 
 
 
