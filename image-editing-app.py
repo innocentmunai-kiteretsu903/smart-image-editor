@@ -2,8 +2,9 @@ import streamlit as st                       # For creating web app
 import cv2                                   # Image processing
 from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
-import os                                    # To interact with the OS
-from utilities import detect_faces, detect_eyes, temp, cartoon, cannize, sepia, pencil, inv
+
+from detections import detect_eyes, detect_faces
+from filters import sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
 
 
 def main():
@@ -73,9 +74,11 @@ def main():
 
             #Auto Detail Enhance
             elif enhance_type == "Auto Detail Enhance": 
-                new_img = np.array(opened_image.convert("RGB"))
-                autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
-                st.image(autoe)
+                #new_img = np.array(opened_image.convert("RGB"))
+                #autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
+                #st.image(autoe)
+
+                st.image(auto_enhance(opened_image))
         
 
         #create selectbox "Filters"
