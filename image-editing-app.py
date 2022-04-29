@@ -1,98 +1,10 @@
-import streamlit as st #for creating web app
-import cv2 #image processing
-from PIL import Image, ImageEnhance
-import numpy as np #to deal with arrays
-import os
-from utilities import rgb2gray
+import streamlit as st                       # For creating web app
+import cv2                                   # Image processing
+from PIL import Image, ImageEnhance          # Image processing
+import numpy as np                           # To deal with arrays
 
-
-face_cascade = cv2.CascadeClassifier('detectors/haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('detectors/haarcascade_eye.xml')
-
-
-kelvin_table = {
-    1000: (255,56,0),
-    1500: (255,109,0),
-    2000: (255,137,18),
-    2500: (255,161,72),
-    3000: (255,180,107),
-    3500: (255,196,137),
-    4000: (255,209,163),
-    4500: (255,219,186),
-    5000: (255,228,206),
-    5500: (255,236,224),
-    6000: (255,243,239),
-    6500: (255,249,253),
-    7000: (245,243,255),
-    7500: (235,238,255),
-    8000: (227,233,255),
-    8500: (220,229,255),
-    9000: (214,225,255),
-    9500: (208,222,255),
-    10000: (204,219,255)}
-
-def temp(opened_image, k):
-    r, g, b = kelvin_table[k]
-    temp_matrix = ( r / 255.0, 0.0, 0.0, 0.0,
-               0.0, g / 255.0, 0.0, 0.0,
-               0.0, 0.0, b / 255.0, 0.0 )
-    temp_image = opened_image.convert('RGB', temp_matrix)
-    return temp_image
-
-def detect_faces(opened_image):
-    #detect face
-    new_img = np.array(opened_image.convert("RGB"))
-    faces = face_cascade.detectMultiScale(new_img, 1.1, 6)
-
-    #draw rectangles
-    for (x, y, w, h) in faces: #4 corners
-        cv2.rectangle(new_img, (x,y), (x+w, y+h), (255, 0, 0), 2) #2 border
-    return new_img, faces
-
-
-def detect_eyes(opened_image):
-    new_img = np.array(opened_image.convert("RGB"))
-    eyes = eye_cascade.detectMultiScale(new_img, 1.3, 5)
-
-    #draw rectangles
-    for (x, y, w, h) in eyes: #4 corners
-        cv2.rectangle(new_img, (x,y), (x+w, y+h), (0, 255, 0), 2) #2 border
-    return new_img, eyes
-
-def cartoon(opened_image):
-    new_img = np.array(opened_image.convert("RGB"))
-    edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
-    smooth = cv2.edgePreservingFilter(new_img, flags=2, sigma_s=64, sigma_r=0.3)
-    cartoon_img = cv2.bitwise_and(smooth, smooth, mask = edge)
-    return cartoon_img
-
-def cannize(opened_image):
-    new_img = np.array(opened_image.convert("RGB"))
-    img = cv2.GaussianBlur(new_img, (15,15), 0)
-    cannized_img = cv2.Canny(img, 100, 150)
-    return cannized_img
-
-def sepia(opened_image):
-    new_img = np.array(opened_image.convert("RGB"), dtype=np.float64) 
-    sepia_matrix = np.matrix([[0.390, 0.769, 0.189],
-                              [0.349, 0.686, 0.168],
-                              [0.272, 0.534, 0.131]])
-    sepia_img = cv2.transform(new_img, sepia_matrix)
-    sepia_img[np.where(sepia_img > 255)] = 255 
-    sepia_img = np.array(sepia_img, dtype=np.uint8)
-    return sepia_img
-
-def pencil(opened_image):
-    new_img = np.array(opened_image.convert("RGB"))
-    sk_gray, sk_color = cv2.pencilSketch(new_img, sigma_s=60, sigma_r=0.07, shade_factor=0.1)
-    return sk_gray, sk_color
-
-def inv(opened_image):
-    new_img = np.array(opened_image.convert("RGB"))
-    inv_img = cv2.bitwise_not(new_img)
-    return inv_img
-    
-
+from detections import detect_eyes, detect_faces
+from filters import sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
 
 
 def main():
@@ -105,8 +17,14 @@ def main():
     choice = st.sidebar.selectbox('Select Activity', activities) #create sidebar
 
 
+    if choice == "About":  # About page
+        st.subheader("About the developers")
+        # can add website/social media.
+        st.markdown("Built with streamlit by Bozen and Innocent")
+        st.text("test...test")
+
     #file uploader
-    if choice == "Editing": #Detection page
+    elif choice == "Editing": #Detection page
         image_file = st.file_uploader("Upload Image", type = ["jpg","png", "jpeg"])
 
         if image_file is not None: #if uploaded
@@ -156,9 +74,11 @@ def main():
 
             #Auto Detail Enhance
             elif enhance_type == "Auto Detail Enhance": 
-                new_img = np.array(opened_image.convert("RGB"))
-                autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
-                st.image(autoe)
+                #new_img = np.array(opened_image.convert("RGB"))
+                #autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
+                #st.image(autoe)
+
+                st.image(auto_enhance(opened_image))
         
 
         #create selectbox "Filters"
@@ -204,16 +124,6 @@ def main():
                 st.image(result_img)
                 st.success("Found {} eyes".format(len(result_eye)))
 
-
-
-            
-
-
-
-    elif choice == "About": #About page
-        st.subheader("About the developer")
-        st.markdown("Built with streamlit by Bozen and Innocent") #can add website/social media.
-        st.text("test...test")
 
 
 
