@@ -102,7 +102,7 @@ def main():
                 result_img = temp(opened_image, 10000)
                 st.image(result_img)
         
-
+        
         #create selectbox "AI Detection"
         tasks = ["Faces", "Eyes"]
         feature_choice = st.sidebar.selectbox("AI Detection", tasks)
