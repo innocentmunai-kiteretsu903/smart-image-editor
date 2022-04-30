@@ -6,6 +6,12 @@ import numpy as np                           # To deal with arrays
 from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
 from filters import sepia, temp, cartoon, cannize, pencil, inv
 
+hide_streamlit_style = """
+            <style>
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 def main():
     st.title('Image Editor') #define title
@@ -21,7 +27,8 @@ def main():
         st.subheader("About the developers")
         # can add website/social media.
         st.markdown("Built with streamlit by Bozen and Innocent")
-        st.text("test...test")
+        with open('about.txt') as file:
+            st.text(file.read())
 
     #file uploader
     elif choice == "Editing": #Detection page
@@ -205,7 +212,6 @@ def main():
                         st.info("Found Full Body")
                     elif len(result_body) == 0:
                         st.error("No Full Body")
-
 
 
 if __name__ == '__main__':
