@@ -6,6 +6,12 @@ import numpy as np                           # To deal with arrays
 from detections import detect_eyes, detect_faces
 from filters import grayscale, sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
 
+hide_streamlit_style = """
+            <style>
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 def main():
     st.title('Image Editor') #define title
@@ -21,7 +27,8 @@ def main():
         st.subheader("About the developers")
         # can add website/social media.
         st.markdown("Built with streamlit by Bozen and Innocent")
-        st.text("test...test")
+        with open('about.txt') as file:
+            st.text(file.read())
 
     #file uploader
     elif choice == "Editing": #Detection page
@@ -101,6 +108,7 @@ def main():
             elif feature_choice == "Cold":
                 result_img = temp(opened_image, 10000)
                 st.image(result_img)
+                st.snow()
         
 
         #create selectbox "AI Detection"
