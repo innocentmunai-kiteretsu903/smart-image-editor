@@ -110,7 +110,7 @@ def main():
                 st.image(result_img)
                 st.snow()
         
-
+        
         #create selectbox "AI Detection"
         tasks = ["Faces", "Eyes"]
         feature_choice = st.sidebar.selectbox("AI Detection", tasks)
