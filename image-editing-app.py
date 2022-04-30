@@ -3,7 +3,7 @@ import cv2                                   # Image processing
 from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
 
-from detections import detect_eyes, detect_faces
+from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
 from filters import sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
 
 
@@ -81,49 +81,60 @@ def main():
                 st.image(auto_enhance(opened_image))
         
 
-        #create selectbox "Filters"
-        filters = ["Cartoon", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
-        feature_choice = st.sidebar.selectbox("Filters", filters)
-        if st.sidebar.button("Apply the filter"):
-            if feature_choice == "Cartoon":
-                result_img = cartoon(opened_image)
-                st.image(result_img)
-            elif feature_choice == "Cannize":
-                result_img = cannize(opened_image)
-                st.image(result_img)
-            elif feature_choice == "Sepia":
-                result_img = sepia(opened_image)
-                st.image(result_img)
-            elif feature_choice == "Pencil Gray":
-                result_img = pencil(opened_image)
-                st.image(result_img[0])
-            elif feature_choice == "Pencil Color":
-                result_img = pencil(opened_image)
-                st.image(result_img[1])
-            elif feature_choice == "Invert":
-                result_img = inv(opened_image)
-                st.image(result_img)
-            elif feature_choice == "Warm":
-                result_img = temp(opened_image, 3500)
-                st.image(result_img)
-            elif feature_choice == "Cold":
-                result_img = temp(opened_image, 10000)
-                st.image(result_img)
-        
+            #create selectbox "Filters"
+            filters = ["Cartoon", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
+            feature_choice = st.sidebar.selectbox("Filters", filters)
+            if st.sidebar.button("Apply the filter"):
+                if feature_choice == "Cartoon":
+                    result_img = cartoon(opened_image)
+                    st.image(result_img)
+                elif feature_choice == "Cannize":
+                    result_img = cannize(opened_image)
+                    st.image(result_img)
+                elif feature_choice == "Sepia":
+                    result_img = sepia(opened_image)
+                    st.image(result_img)
+                elif feature_choice == "Pencil Gray":
+                    result_img = pencil(opened_image)
+                    st.image(result_img[0])
+                elif feature_choice == "Pencil Color":
+                    result_img = pencil(opened_image)
+                    st.image(result_img[1])
+                elif feature_choice == "Invert":
+                    result_img = inv(opened_image)
+                    st.image(result_img)
+                elif feature_choice == "Warm":
+                    result_img = temp(opened_image, 3500)
+                    st.image(result_img)
+                elif feature_choice == "Cold":
+                    result_img = temp(opened_image, 10000)
+                    st.image(result_img)
+            
 
-        #create selectbox "AI Detection"
-        tasks = ["Faces", "Eyes"]
-        feature_choice = st.sidebar.selectbox("AI Detection", tasks)
-        if st.sidebar.button("Start Detection"):
-            if feature_choice == "Faces":
-                result_img, result_face = detect_faces(opened_image)
-                st.image(result_img)
-                st.success("Found {} faces".format(len(result_face)))
-            elif feature_choice == "Eyes":
-                result_img, result_eye = detect_eyes(opened_image)
-                st.image(result_img)
-                st.success("Found {} eyes".format(len(result_eye)))
-
+            #create selectbox "AI Detection"
+            tasks = ["Faces", "Eyes", "Smile", "Full Body"]
+            feature_choice = st.sidebar.selectbox("AI Detection", tasks)
+            if st.sidebar.button("Start Detection"):
+                if feature_choice == "Faces":
+                    result_img, result_face = detect_faces(opened_image)
+                    st.image(result_img)
+                    st.info("Found {} faces".format(len(result_face)))
+                elif feature_choice == "Eyes":
+                    result_img, result_eye = detect_eyes(opened_image)
+                    st.image(result_img)
+                    st.info("Found {} eyes".format(len(result_eye)))
+                elif feature_choice == "Smile":
+                    result_smile = detect_smiles(opened_image)
+                    if len(result_smile) > 0:
+                        st.info("Found Smile")
+                    elif len(result_smile) == 0:
+                        st.error("No Smile")
+                elif feature_choice == "Full Body":
+                    result_body = detect_fullbody(opened_image)
+                    if len(result_body) > 0:
+                        st.info("Found Full Body")
+                    elif len(result_body) == 0:
+                        st.error("No Full Body")
 
 
 
