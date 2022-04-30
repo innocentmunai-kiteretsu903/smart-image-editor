@@ -37,8 +37,7 @@ def main():
         if image_file is not None: #if uploaded
             opened_image = Image.open(image_file) #open the image by Image function
             opened_image_array_original = np.array(opened_image.convert("RGB")) #!!!!!!
-            st.text("Original Image")
-            st.image(opened_image) #display the image
+
 
             #initialize sessionstate to store processed image
             if 'pimg' not in st.session_state:
