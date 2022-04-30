@@ -4,7 +4,7 @@ from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
 
 from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
-from filters import sepia, temp, cartoon, cannize, pencil, inv, auto_enhance
+from filters import sepia, temp, cartoon, cannize, pencil, inv
 
 
 def main():
@@ -29,57 +29,123 @@ def main():
 
         if image_file is not None: #if uploaded
             opened_image = Image.open(image_file) #open the image by Image function
+            opened_image_array_original = np.array(opened_image.convert("RGB")) #!!!!!!
             st.text("Original Image")
             st.image(opened_image) #display the image
 
-            #create buttons
-            enhanceoptions = ["Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
+            #initialize sessionstate to store processed image
+            if 'pimg' not in st.session_state:
+                st.session_state['pimg'] = opened_image_array_original
+
+
+            #create buttons of enhancing section
+            enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions) #options on sidebar
 
 
-            #GRAY_SCALE
-            if enhance_type == "Gray-scale": 
-                img = np.array(opened_image.convert("RGB"))
-                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            #RESET TO ORIGINAL - OK
+            if enhance_type == "Reset to Original": 
+                st.image(opened_image_array_original)
 
-                st.text("Gray-scale image")
-                st.image(gray)
+                #save button
+                if st.sidebar.button("Reset to original"):
+                    st.session_state['pimg'] = opened_image_array_original
+                    st.sidebar.success("Reset successfully!")
 
-            #CONTRAST
+
+            #GRAY_SCALE - OK
+            elif enhance_type == "Gray-scale": 
+                if len(st.session_state['pimg'].shape) < 3: #if gray, do no change
+                    preview = ' '
+                    st.image(st.session_state['pimg'])
+                elif len(st.session_state['pimg'].shape) == 3: #if color, convert
+                    preview = cv2.cvtColor(st.session_state['pimg'], cv2.COLOR_BGR2GRAY)
+                    st.image(preview)
+
+                #save  button
+                if st.sidebar.button("Save Gray-scale"):
+                    if not preview == ' ': #if color, save change
+                        st.session_state['pimg'] = preview
+                        st.sidebar.success("Gray-scale saved!")
+                    else: #if gray, alert
+                        st.sidebar.error("Already Gray-scale!")
+
+
+            #CONTRAST - OK
             elif enhance_type == "Contrast": 
                 rate = st.sidebar.slider("Contrast", 0.1, 10.0, 1.0)
-                enhancer = ImageEnhance.Contrast(opened_image)
-                contrast_img = enhancer.enhance(rate) #take the rate selected
-                st.image(contrast_img)
+                m_img = Image.fromarray(st.session_state['pimg'])
+                enhancer = ImageEnhance.Contrast(m_img)
+                preview = enhancer.enhance(rate) #take the rate selected
+                st.image(preview)
 
-            #BRIGHTNESS
+                #save  button
+                if st.sidebar.button("Save Contrast"):
+                    st.session_state['pimg'] = np.array(preview.convert("RGB"))
+                    st.sidebar.success("Contrast saved!")
+
+
+            #BRIGHTNESS - OK
             elif enhance_type == "Brightness": 
-                rate = st.sidebar.slider("Brightness", 0.1, 10.0, 1.0)
-                enhancer = ImageEnhance.Brightness(opened_image)
-                brightness_img = enhancer.enhance(rate) #take the rate selected
-                st.image(brightness_img)
+                rate = st.sidebar.slider("Brightness", 0.1, 2.0, 1.0)
+                m_img = Image.fromarray(st.session_state['pimg'])
+                enhancer = ImageEnhance.Brightness(m_img)
+                preview = enhancer.enhance(rate) #take the rate selected
+                st.image(preview)
 
-            #BLUR
+                #save  button
+                if st.sidebar.button("Save Brightness"):
+                    st.session_state['pimg'] = np.array(preview.convert("RGB"))
+                    st.sidebar.success("Brightness saved!")
+
+
+            #BLUR - OK
             elif enhance_type == "Blurring": 
                 rate = st.sidebar.slider("Blurring", 0.0, 10.0, 0.0)
-                blurred_image = cv2.GaussianBlur(np.array(opened_image),(13,13),rate)#13 size of kernel (filter, odd number)
-                st.image(blurred_image)
+                preview = cv2.GaussianBlur(st.session_state['pimg'],(13,13),rate)
+                st.image(preview)
 
-            #Sharpness
+                #save button
+                if st.sidebar.button("Save Blur"):
+                    st.session_state['pimg'] = preview
+                    st.sidebar.success("Blur saved!")
+
+
+            #Sharpness -OK
             elif enhance_type == "Sharpness": 
                 rate = st.sidebar.slider("Sharpness", 0.0, 10.0, 0.0)
-                enhancer = ImageEnhance.Sharpness(opened_image)
-                sharpness_img = enhancer.enhance(rate) #take the rate selected
-                st.image(sharpness_img)
+                m_img = Image.fromarray(st.session_state['pimg'])
+                enhancer = ImageEnhance.Sharpness(m_img)
+                preview = enhancer.enhance(rate) #take the rate selected
+                st.image(preview)
 
-            #Auto Detail Enhance
+                #save  button
+                if st.sidebar.button("Save Sharpness"):
+                    st.session_state['pimg'] = np.array(preview.convert("RGB"))
+                    st.sidebar.success("Sharpness saved!")
+
+
+            #Auto Detail Enhance - OK
             elif enhance_type == "Auto Detail Enhance": 
-                #new_img = np.array(opened_image.convert("RGB"))
-                #autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
-                #st.image(autoe)
+                if len(st.session_state['pimg'].shape) < 3: #gray image enhancing
+                    preview = cv2.equalizeHist(st.session_state['pimg'])
+                    st.image(preview)
+                elif len(st.session_state['pimg'].shape) == 3: #color image enhancing
+                    preview = cv2.detailEnhance(st.session_state['pimg'], sigma_s=3, sigma_r=0.1)
+                    st.image(preview)
 
-                st.image(auto_enhance(opened_image))
-        
+                #save  button
+                if st.sidebar.button("Save Auto Enhance"):
+                    st.session_state['pimg'] = preview
+                    st.sidebar.success("Auto Enhance saved!")
+
+
+            
+            #empty space
+            for _ in range(2):
+                st.sidebar.write('\n')
+
+
 
             #create selectbox "Filters"
             filters = ["Cartoon", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
@@ -110,6 +176,10 @@ def main():
                     result_img = temp(opened_image, 10000)
                     st.image(result_img)
             
+            #empty space
+            for _ in range(2):
+                st.sidebar.write('\n')
+
 
             #create selectbox "AI Detection"
             tasks = ["Faces", "Eyes", "Smile", "Full Body"]

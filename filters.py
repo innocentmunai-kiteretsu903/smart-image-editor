@@ -91,10 +91,4 @@ def inv(opened_image):
     return inv_img
 
 
-def auto_enhance(opened_image):
-    """
-    ??????
-    """
-    new_img = np.array(opened_image.convert("RGB"))
-    autoe = cv2.detailEnhance(new_img, sigma_s=10, sigma_r=0.2)
-    return (autoe)
+
