@@ -1,5 +1,0 @@
-numpy
-PIL
-opencv-python-headless
-opencv-python
-os
