@@ -1,0 +1,4 @@
+numpy
+PIL
+opencv-python-headless
+os
