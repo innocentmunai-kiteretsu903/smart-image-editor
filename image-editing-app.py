@@ -1,3 +1,16 @@
+'''
+* Reference:
+* We have learned the basic ideas of using streamlit, opencv, and Pillow modules
+* from this Udemy course
+* https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
+*
+* we have referred to the documentations of the libraries used in this code
+* we have relied on various online resources to solve error and warning information
+*
+* Cascade Classifiers are from OpenCV
+* https://github.com/opencv/opencv/tree/master/data/haarcascades
+'''
+
 import streamlit as st                       # For creating web app
 import cv2                                   # Image processing
 from PIL import Image, ImageEnhance          # Image processing
@@ -36,7 +49,7 @@ def main():
 
         if image_file is not None: #if uploaded
             opened_image = Image.open(image_file) #open the image by Image function
-            opened_image_array_original = np.array(opened_image.convert("RGB")) #!!!!!!
+            opened_image_array_original = np.array(opened_image.convert("RGB")) 
 
 
             #initialize sessionstate to store processed image
