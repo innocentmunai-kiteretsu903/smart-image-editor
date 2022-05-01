@@ -20,6 +20,7 @@ from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
 from filters import sepia, temp, paint, cannize, pencil, inv
 
 
+
 # Hide the footer and/or the menu icon
 hide_streamlit_style = """
             <style>
@@ -36,17 +37,18 @@ def change(): #fallback function when uploading new image
 
 def main():
     st.title('Simple Image Editor') #define title
-    st.text("Edit your images with a single click!.") #slogan
+    st.text("Edit your images with a single click!") #slogan
 
 
     #sidebar
-    activities = ["About", "Enhance", "Filters", "AI Detection"]  #sidebar options
+    activities = ["Start", "Enhance", "Filters", "AI Detection"]  #sidebar options
     choice = st.sidebar.selectbox('Select Activity', activities) #create sidebar
+
 
     #Uploader (callback to change() when uploading new image)
     image_file = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"], on_change=change)
 
-    if choice == "About":  # About page
+    if choice == "Start":  # Start page
         st.subheader("About the developers")
         # can add website/social media.
         st.markdown("Built with Streamlit by Bozen and Innocent")
@@ -54,18 +56,18 @@ def main():
         with open('about.txt') as file:
             st.text(file.read())
 
+    if image_file is not None: #if uploaded
+        opened_image = Image.open(image_file) #open the image by Image function
+        opened_image_array_original = np.array(opened_image.convert("RGB"))
+    
+        #initialize sessionstate of image 
+        #to store processed image & refresh when uploading new image
+        if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
+            st.session_state['pimg'] = opened_image_array_original
 
-    elif choice == "Enhance": #Editing page
-        
-        if image_file is not None: #if uploaded
-            opened_image = Image.open(image_file) #open the image by Image function
-            opened_image_array_original = np.array(opened_image.convert("RGB"))
-            
-            #initialize sessionstate of image 
-            #to store processed image & refresh when uploading new image
-            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
-                st.session_state['pimg'] = opened_image_array_original
+    
 
+        if choice == "Enhance": #Editing page
             #initialize sessionstate of sidebar buttons of enhancing options 
             if 'enhancing' not in st.session_state: 
                 st.session_state['enhancing'] = "Reset to Original"
@@ -75,6 +77,8 @@ def main():
             #status store in st.session_state['enhancing']
             enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions, key='enhancing') 
+            
+                
             
 
             #RESET TO ORIGINAL - OK
@@ -174,23 +178,14 @@ def main():
                     st.session_state['pimg'] = preview
                     st.sidebar.success("Auto Enhance saved!")
 
+            st.sidebar.write('Right-click on the image and select "Save Image" to download it.')
 
-    elif choice == "Filters":
-
-            if image_file is not None:  # if uploaded
-                opened_image = Image.open(image_file) #open the image by Image function
-                opened_image_array_original = np.array(opened_image.convert("RGB"))
-            
-            #initialize sessionstate of image 
-            #to store processed image & refresh when uploading new image
-            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
-                st.session_state['pimg'] = opened_image_array_original
-
+        elif choice == "Filters":
 
             #create selectbox "Filters"
             filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
-            if st.sidebar.button("Preview the filter"):
+            if st.sidebar.button("Apply the filter"):
                 if feature_choice == "Painting":
                     result_img = paint(opened_image)
                     st.image(result_img)
@@ -218,49 +213,49 @@ def main():
             else:
                 preview = opened_image_array_original
                 st.image(preview)
-
-
-    elif choice == "AI Detection":
-
-            if image_file is not None:  # if uploaded
-                opened_image = Image.open(image_file) #open the image by Image function
-                opened_image_array_original = np.array(opened_image.convert("RGB"))
             
-            #initialize sessionstate of image 
-            #to store processed image & refresh when uploading new image
-            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
-                st.session_state['pimg'] = opened_image_array_original
+            st.sidebar.write('Right-click on the image and select "Save Image" to download it.')
 
 
+        elif choice == "AI Detection":
             #create selectbox "AI Detection"
             tasks = ["Faces", "Eyes", "Smile", "Full Body"]
             feature_choice = st.sidebar.selectbox("AI Detection", tasks)
             if st.sidebar.button("Start Detection"):
                 if feature_choice == "Faces":
                     result_img, result_face = detect_faces(opened_image)
+                    if len(result_face) > 0:
+                        st.success("Found {} faces".format(len(result_face)))
+                    elif len(result_face) == 0:
+                        st.error("No face found")
                     st.image(result_img)
-                    st.info("Found {} faces".format(len(result_face)))
                 elif feature_choice == "Eyes":
                     result_img, result_eye = detect_eyes(opened_image)
+                    if len(result_eye) > 0:
+                        st.success("Found {} eyes".format(len(result_eye)))
+                    elif len(result_eye) == 0:
+                        st.error("No eye found")
                     st.image(result_img)
-                    st.info("Found {} eyes".format(len(result_eye)))
                 elif feature_choice == "Smile":
                     result_smile = detect_smiles(opened_image)
                     if len(result_smile) > 0:
-                        st.info("Found Smile")
+                        st.success("Found smile")
                     elif len(result_smile) == 0:
-                        st.error("No Smile")
+                        st.error("No smile found")
+                    st.image(opened_image)
                 elif feature_choice == "Full Body":
                     result_body = detect_fullbody(opened_image)
                     if len(result_body) > 0:
-                        st.info("Found Full Body")
+                        st.success("Found full body")
                     elif len(result_body) == 0:
-                        st.error("No Full Body")
+                        st.error("No full body found")
+                    st.image(opened_image)
 
             else:
                 preview = opened_image_array_original
                 st.image(preview)
-
+                
+            st.sidebar.write('Right-click on the image and select "Save Image" to download it.')
 
 if __name__ == '__main__':
     main()
