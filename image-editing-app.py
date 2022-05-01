@@ -70,10 +70,10 @@ def main():
 
                 #save  button
                 if st.sidebar.button("Save Gray-scale"):
-                    if not preview == ' ': #if color, save change
+                    if not preview == ' ': #if color, convert and save change
                         st.session_state['pimg'] = preview
                         st.sidebar.success("Gray-scale saved!")
-                    else: #if gray, alert
+                    else: #if already gray, alert
                         st.sidebar.error("Already Gray-scale!")
 
 
