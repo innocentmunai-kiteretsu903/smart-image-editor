@@ -33,14 +33,16 @@ def change(): #fallback function when uploading new image
     st.session_state['enhancing'] = "Reset to Original"
 
 def main():
-    st.title('Soku Image Editor') #define title
-    st.text("Edit your image with a single click.") #slogan
+    st.title('Simple Image Editor') #define title
+    st.text("Edit your images with a single click!.") #slogan
 
 
     #sidebar
-    activities = ["Editing", "About"]  #sidebar options
+    activities = ["About", "Enhance", "Filters", "AI Detection"]  #sidebar options
     choice = st.sidebar.selectbox('Select Activity', activities) #create sidebar
 
+    #Uploader (callback to change() when uploading new image)
+    image_file = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"], on_change=change)
 
     if choice == "About":  # About page
         st.subheader("About the developers")
@@ -49,11 +51,8 @@ def main():
         with open('about.txt') as file:
             st.text(file.read())
 
-    elif choice == "Editing": #Editing page
 
-        #Uploader (callback to change() when uploading new image)
-        image_file = st.file_uploader("Upload Image", type = ["jpg","png", "jpeg"], on_change = change)
-
+    elif choice == "Enhance": #Editing page
         
         if image_file is not None: #if uploaded
             opened_image = Image.open(image_file) #open the image by Image function
@@ -173,12 +172,16 @@ def main():
                     st.sidebar.success("Auto Enhance saved!")
 
 
+    elif choice == "Filters":
+
+            if image_file is not None:  # if uploaded
+                opened_image = Image.open(image_file) #open the image by Image function
+                opened_image_array_original = np.array(opened_image.convert("RGB"))
             
-            #empty space
-            for _ in range(2):
-                st.sidebar.write('\n')
-
-
+            #initialize sessionstate of image 
+            #to store processed image & refresh when uploading new image
+            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
+                st.session_state['pimg'] = opened_image_array_original
 
             #create selectbox "Filters"
             filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
@@ -208,12 +211,19 @@ def main():
                 elif feature_choice == "Cold":
                     result_img = temp(opened_image, 10000)
                     st.image(result_img)
+
+
+    elif choice == "AI Detection":
+
+            if image_file is not None:  # if uploaded
+                opened_image = Image.open(image_file) #open the image by Image function
+                opened_image_array_original = np.array(opened_image.convert("RGB"))
             
-            #empty space
-            for _ in range(2):
-                st.sidebar.write('\n')
-
-
+            #initialize sessionstate of image 
+            #to store processed image & refresh when uploading new image
+            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
+                st.session_state['pimg'] = opened_image_array_original
+                
             #create selectbox "AI Detection"
             tasks = ["Faces", "Eyes", "Smile", "Full Body"]
             feature_choice = st.sidebar.selectbox("AI Detection", tasks)
