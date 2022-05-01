@@ -59,7 +59,7 @@ def temp(opened_image, k):
     return temp_image
 
 
-def cartoon(opened_image):
+def paint(opened_image):
     """
     ?????
     """
@@ -67,8 +67,8 @@ def cartoon(opened_image):
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(
         new_img, flags=2, sigma_s=64, sigma_r=0.3)
-    cartoon_img = cv2.bitwise_and(smooth, smooth, mask=edge)
-    return cartoon_img
+    paint_img = cv2.bitwise_and(smooth, smooth, mask=edge)
+    return paint_img
 
 
 def cannize(opened_image):

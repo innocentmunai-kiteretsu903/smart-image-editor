@@ -4,7 +4,7 @@ from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
 
 from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
-from filters import sepia, temp, cartoon, cannize, pencil, inv
+from filters import sepia, temp, paint, cannize, pencil, inv
 
 hide_streamlit_style = """
             <style>
@@ -154,11 +154,11 @@ def main():
 
 
             #create selectbox "Filters"
-            filters = ["Cartoon", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
+            filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
             if st.sidebar.button("Apply the filter"):
-                if feature_choice == "Cartoon":
-                    result_img = cartoon(opened_image)
+                if feature_choice == "Painting":
+                    result_img = paint(opened_image)
                     st.image(result_img)
                 elif feature_choice == "Cannize":
                     result_img = cannize(opened_image)

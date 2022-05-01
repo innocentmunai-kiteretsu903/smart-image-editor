@@ -1,10 +1,14 @@
 import numpy as np 
 import cv2
+import os
 
-face_cascade = cv2.CascadeClassifier('detectors/haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('detectors/haarcascade_eye.xml')
-smile_cascade = cv2.CascadeClassifier('detectors/haarcascade_smile.xml')
-fullbody_cascade = cv2.CascadeClassifier('detectors/haarcascade_fullbody.xml')
+
+
+dirname = os.path.dirname(__file__)
+face_cascade = cv2.CascadeClassifier(os.path.join(dirname, 'detectors/haarcascade_frontalface_default.xml'))
+eye_cascade = cv2.CascadeClassifier(os.path.join(dirname, 'detectors/haarcascade_eye.xml'))
+smile_cascade = cv2.CascadeClassifier(os.path.join(dirname, 'detectors/haarcascade_smile.xml'))
+fullbody_cascade = cv2.CascadeClassifier(os.path.join(dirname, 'detectors/haarcascade_fullbody.xml'))
 
 
 
@@ -38,9 +42,15 @@ def detect_smiles(opened_image):
     """
     ????
     """
-    new_img = np.array(opened_image.convert("RGB")) 
-    smile = smile_cascade.detectMultiScale(new_img, 1.3, 55)
-    return smile
+    result_face = detect_faces(opened_image)[1] #get number of face
+
+    #only detect smile when finding face
+    if len(result_face) > 0: 
+        new_img = np.array(opened_image.convert("RGB")) 
+        smile = smile_cascade.detectMultiScale(new_img, 1.3, 5)
+        return smile
+    else:
+        return []
 
 def detect_fullbody(opened_image):
     """
