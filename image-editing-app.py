@@ -14,8 +14,8 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 def main():
-    st.title('Image Editor') #define title
-    st.text("Edit your image in a fast and simple way") #subtitle
+    st.title('Soku Image Editor') #define title
+    st.text("Edit your image with a single click.") #slogan
 
 
     #sidebar
