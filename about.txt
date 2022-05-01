@@ -1,2 +1,3 @@
-Test line 1 
-Test line 2
+To use this web app, first upload your image through the uploader above.
+Then navigate through the sidebar on the left to select and activity.
+Enjoy the outcome!

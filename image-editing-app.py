@@ -19,6 +19,8 @@ import numpy as np                           # To deal with arrays
 from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
 from filters import sepia, temp, paint, cannize, pencil, inv
 
+
+# Hide the footer and/or the menu icon
 hide_streamlit_style = """
             <style>
             footer {visibility: hidden;}
@@ -47,7 +49,8 @@ def main():
     if choice == "About":  # About page
         st.subheader("About the developers")
         # can add website/social media.
-        st.markdown("Built with streamlit by Bozen and Innocent")
+        st.markdown("Built with Streamlit by Bozen and Innocent")
+        st.markdown("Harvard's CS32 Final Project")
         with open('about.txt') as file:
             st.text(file.read())
 
@@ -183,10 +186,11 @@ def main():
             if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
                 st.session_state['pimg'] = opened_image_array_original
 
+
             #create selectbox "Filters"
             filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
-            if st.sidebar.button("Apply the filter"):
+            if st.sidebar.button("Preview the filter"):
                 if feature_choice == "Painting":
                     result_img = paint(opened_image)
                     st.image(result_img)
@@ -211,6 +215,9 @@ def main():
                 elif feature_choice == "Cold":
                     result_img = temp(opened_image, 10000)
                     st.image(result_img)
+            else:
+                preview = opened_image_array_original
+                st.image(preview)
 
 
     elif choice == "AI Detection":
@@ -223,7 +230,8 @@ def main():
             #to store processed image & refresh when uploading new image
             if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
                 st.session_state['pimg'] = opened_image_array_original
-                
+
+
             #create selectbox "AI Detection"
             tasks = ["Faces", "Eyes", "Smile", "Full Body"]
             feature_choice = st.sidebar.selectbox("AI Detection", tasks)
@@ -248,6 +256,10 @@ def main():
                         st.info("Found Full Body")
                     elif len(result_body) == 0:
                         st.error("No Full Body")
+
+            else:
+                preview = opened_image_array_original
+                st.image(preview)
 
 
 if __name__ == '__main__':
