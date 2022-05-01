@@ -4,8 +4,8 @@
 * from this Udemy course
 * https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
 *
-* we have referred to the documentations of the libraries used in this code
-* we have relied on various online resources to solve error and warning information
+* we have referred to the official documentations of the libraries used in this code
+* we have referred to various online resources to solve error and warning information
 *
 * Cascade Classifiers are from OpenCV
 * https://github.com/opencv/opencv/tree/master/data/haarcascades
