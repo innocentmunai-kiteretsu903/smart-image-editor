@@ -26,6 +26,12 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+def change(): #fallback function when uploading new image
+    #st.snow()
+    #when uploading new image, reset session state
+    st.session_state['pimg'] = [] 
+    st.session_state['enhancing'] = "Reset to Original"
+
 def main():
     st.title('Soku Image Editor') #define title
     st.text("Edit your image with a single click.") #slogan
@@ -43,32 +49,40 @@ def main():
         with open('about.txt') as file:
             st.text(file.read())
 
-    #file uploader
-    elif choice == "Editing": #Detection page
-        image_file = st.file_uploader("Upload Image", type = ["jpg","png", "jpeg"])
+    elif choice == "Editing": #Editing page
 
+        #Uploader (callback to change() when uploading new image)
+        image_file = st.file_uploader("Upload Image", type = ["jpg","png", "jpeg"], on_change = change)
+
+        
         if image_file is not None: #if uploaded
             opened_image = Image.open(image_file) #open the image by Image function
-            opened_image_array_original = np.array(opened_image.convert("RGB")) 
-
-
-            #initialize sessionstate to store processed image
-            if 'pimg' not in st.session_state:
+            opened_image_array_original = np.array(opened_image.convert("RGB"))
+            
+            #initialize sessionstate of image 
+            #to store processed image & refresh when uploading new image
+            if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
                 st.session_state['pimg'] = opened_image_array_original
+
+            #initialize sessionstate of sidebar buttons of enhancing options 
+            if 'enhancing' not in st.session_state: 
+                st.session_state['enhancing'] = "Reset to Original"
 
 
             #create buttons of enhancing section
+            #status store in st.session_state['enhancing']
             enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
-            enhance_type = st.sidebar.radio("Enhance type", enhanceoptions) #options on sidebar
+            enhance_type = st.sidebar.radio("Enhance type", enhanceoptions, key='enhancing') 
 
 
             #RESET TO ORIGINAL - OK
             if enhance_type == "Reset to Original": 
-                st.image(opened_image_array_original)
+                preview = opened_image_array_original
+                st.image(preview)
 
                 #save button
                 if st.sidebar.button("Reset to original"):
-                    st.session_state['pimg'] = opened_image_array_original
+                    st.session_state['pimg'] = preview
                     st.sidebar.success("Reset successfully!")
 
 
