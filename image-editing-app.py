@@ -73,7 +73,7 @@ def main():
             #status store in st.session_state['enhancing']
             enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions, key='enhancing') 
-
+            
 
             #RESET TO ORIGINAL - OK
             if enhance_type == "Reset to Original": 
