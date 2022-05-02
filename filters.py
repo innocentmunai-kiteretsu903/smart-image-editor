@@ -98,6 +98,3 @@ def inv(opened_image):
     new_img = np.array(opened_image.convert("RGB"))
     inv_img = cv2.bitwise_not(new_img)
     return inv_img
-
-
-
