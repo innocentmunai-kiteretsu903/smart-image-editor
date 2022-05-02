@@ -13,14 +13,11 @@ fullbody_cascade = cv2.CascadeClassifier(os.path.join(dirname, 'detectors/haarca
 
 
 def detect_faces(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns an image as well as an array of face detection data.
     The image returned has red rectangles drawn on faces (if detected).
     The length of the array of face detection data will tell the number of faces found.
     """
-
     new_img = np.array(opened_image.convert("RGB"))
     faces = face_cascade.detectMultiScale(new_img, 1.35, 7)
 
@@ -31,14 +28,11 @@ def detect_faces(opened_image):
 
 
 def detect_eyes(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns an image as well as an array of eyes data.
     The image returned has green rectangles drawn on eyes (if detected).
     The length of the array of face detection data will tell the number of eyes found.
     """
-
     new_img = np.array(opened_image.convert("RGB"))
     eyes = eye_cascade.detectMultiScale(new_img, 1.3, 5)
 
@@ -49,14 +43,11 @@ def detect_eyes(opened_image):
     return new_img, eyes
 
 def detect_smiles(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     Only when at least one face is detected, this function will work.
     If no face is found, it won't do smile detection but returns an empty list.
     If a face is found, it does the smile detection and returns the array of smile data.
     """
-    
     result_face = detect_faces(opened_image)[1] #get number of face
 
     #only detect smile when finding face
@@ -68,12 +59,9 @@ def detect_smiles(opened_image):
         return []
 
 def detect_fullbody(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns an array of full body detection data.
     """
-    
     new_img = np.array(opened_image.convert("RGB"))
     fullbody = fullbody_cascade.detectMultiScale(new_img, 1.1, 6)
     return fullbody
