@@ -36,51 +36,44 @@ def change(): #fallback function when uploading new image
     st.session_state['enhancing'] = "Reset to Original"
 
 def main():
-    st.title('Simple Image Editor') #define title
+    st.title('Swift Image Editor') #title
     st.text("Edit your images with a single click!") #slogan
 
-
     #sidebar
-    activities = ["Start", "Enhance", "Filters", "AI Detection"]  #sidebar options
+    activities = ["Start", "Enhance", "Filters", "AI Detection", "About"]  #sidebar options
     choice = st.sidebar.selectbox('Select Activity', activities) #create sidebar
 
-
     #Uploader (callback to change() when uploading new image)
-    image_file = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"], on_change=change)
+    image_file = st.file_uploader("Image Uploader", type=["jpg", "png", "jpeg"], on_change=change)
 
     if choice == "Start":  # Start page
-        st.subheader("About the developers")
-        # can add website/social media.
-        st.markdown("Built with Streamlit by Bozen and Innocent")
-        st.markdown("Harvard's CS32 Final Project")
-        with open('about.txt') as file:
+        with open('use.txt') as file:
             st.text(file.read())
+    elif choice == "About": # About page
+        st.subheader("About the developers")
+        st.markdown("Built by Bozen and Innocent with Streamlit")
+        st.markdown("Harvard's CS32 Final Project")
+        
 
-    if image_file is not None: #if uploaded
-        opened_image = Image.open(image_file) #open the image by Image function
-        opened_image_array_original = np.array(opened_image.convert("RGB"))
+    if image_file is not None: #behaviors if image uploaded
+        opened_image = Image.open(image_file) #open the image into image object
+        opened_image_array_original = np.array(opened_image.convert("RGB")) #convert the image into array
     
         #initialize sessionstate of image 
         #to store processed image & refresh when uploading new image
         if 'pimg' not in st.session_state or st.session_state['pimg'] == []: 
             st.session_state['pimg'] = opened_image_array_original
 
-    
-
-        if choice == "Enhance": #Editing page
+        if choice == "Enhance": #Enhance page
             #initialize sessionstate of sidebar buttons of enhancing options 
             if 'enhancing' not in st.session_state: 
                 st.session_state['enhancing'] = "Reset to Original"
 
-
             #create buttons of enhancing section
-            #status store in st.session_state['enhancing']
+            #button status store in st.session_state['enhancing']
             enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions, key='enhancing') 
-            
-                
-            
-
+    
             #RESET TO ORIGINAL - OK
             if enhance_type == "Reset to Original": 
                 preview = opened_image_array_original
@@ -91,7 +84,6 @@ def main():
                     st.session_state['pimg'] = preview
                     st.sidebar.success("Reset successfully!")
 
-
             #GRAY_SCALE - OK
             elif enhance_type == "Gray-scale": 
                 if len(st.session_state['pimg'].shape) < 3: #if gray, do no change
@@ -101,7 +93,7 @@ def main():
                     preview = cv2.cvtColor(st.session_state['pimg'], cv2.COLOR_BGR2GRAY)
                     st.image(preview)
 
-                #save  button
+                #save button
                 if st.sidebar.button("Save Gray-scale"):
                     if not preview == ' ': #if color, convert and save change
                         st.session_state['pimg'] = preview
@@ -109,10 +101,9 @@ def main():
                     else: #if already gray, alert
                         st.sidebar.error("Already Gray-scale!")
 
-
             #CONTRAST - OK
             elif enhance_type == "Contrast": 
-                rate = st.sidebar.slider("Contrast", 0.1, 10.0, 1.0)
+                rate = st.sidebar.slider("Contrast", 0.1, 5.0, 1.0)
                 m_img = Image.fromarray(st.session_state['pimg'])
                 enhancer = ImageEnhance.Contrast(m_img)
                 preview = enhancer.enhance(rate) #take the rate selected
@@ -123,10 +114,9 @@ def main():
                     st.session_state['pimg'] = np.array(preview.convert("RGB"))
                     st.sidebar.success("Contrast saved!")
 
-
             #BRIGHTNESS - OK
             elif enhance_type == "Brightness": 
-                rate = st.sidebar.slider("Brightness", 0.1, 2.0, 1.0)
+                rate = st.sidebar.slider("Brightness", 0.1, 2.5, 1.0)
                 m_img = Image.fromarray(st.session_state['pimg'])
                 enhancer = ImageEnhance.Brightness(m_img)
                 preview = enhancer.enhance(rate) #take the rate selected
@@ -140,8 +130,8 @@ def main():
 
             #BLUR - OK
             elif enhance_type == "Blurring": 
-                rate = st.sidebar.slider("Blurring", 0.0, 10.0, 0.0)
-                preview = cv2.GaussianBlur(st.session_state['pimg'],(13,13),rate)
+                rate = st.sidebar.slider("Blurring", 1, 21, 1, 2)
+                preview = cv2.GaussianBlur(st.session_state['pimg'], (rate, rate), 5.0)
                 st.image(preview)
 
                 #save button
@@ -183,7 +173,7 @@ def main():
         elif choice == "Filters":
 
             #create selectbox "Filters"
-            filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Warm", "Cold"]
+            filters = ["Painting", "Cannize","Sepia", "Pencil Gray", "Pencil Color", "Invert", "Autumn", "Cool Wind"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
             if st.sidebar.button("Apply the filter"):
                 if feature_choice == "Painting":
@@ -204,10 +194,10 @@ def main():
                 elif feature_choice == "Invert":
                     result_img = inv(opened_image)
                     st.image(result_img)
-                elif feature_choice == "Warm":
+                elif feature_choice == "Autumn":
                     result_img = temp(opened_image, 3500)
                     st.image(result_img)
-                elif feature_choice == "Cold":
+                elif feature_choice == "Cool Wind":
                     result_img = temp(opened_image, 10000)
                     st.image(result_img)
             else:
