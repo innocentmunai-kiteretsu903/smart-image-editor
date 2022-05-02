@@ -216,28 +216,28 @@ def main():
             tasks = ["Faces", "Eyes", "Smile", "Full Body"]
             feature_choice = st.sidebar.selectbox("AI Detection", tasks)
             if st.sidebar.button("Start Detection"):
-                if feature_choice == "Faces":
+                if feature_choice == "Faces": #tell if faces exist and the number
                     result_img, result_face = detect_faces(opened_image)
                     if len(result_face) > 0:
                         st.success("Found {} faces".format(len(result_face)))
                     elif len(result_face) == 0:
                         st.error("No face found")
                     st.image(result_img)
-                elif feature_choice == "Eyes":
+                elif feature_choice == "Eyes": #tell if eyes exist and the number
                     result_img, result_eye = detect_eyes(opened_image)
                     if len(result_eye) > 0:
                         st.success("Found {} eyes".format(len(result_eye)))
                     elif len(result_eye) == 0:
                         st.error("No eye found")
                     st.image(result_img)
-                elif feature_choice == "Smile":
+                elif feature_choice == "Smile": #only tell if smile exists
                     result_smile = detect_smiles(opened_image)
                     if len(result_smile) > 0:
                         st.success("Found smile")
                     elif len(result_smile) == 0:
                         st.error("No smile found")
                     st.image(opened_image)
-                elif feature_choice == "Full Body":
+                elif feature_choice == "Full Body": #only tell if full body exists
                     result_body = detect_fullbody(opened_image)
                     if len(result_body) > 0:
                         st.success("Found full body")

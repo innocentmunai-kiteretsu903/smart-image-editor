@@ -3,18 +3,24 @@ import cv2
 
 
 def grayscale(opened_image):
+
     """
-    ????
+    This function takes an image object opened by Image.open as the input.
+    It returns the gray-scale processed image.
     """
+
     img = np.array(opened_image.convert("RGB"))
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return gray_image
 
 
 def sepia(opened_image):
+    
     """
-    ?????
+    This function takes an image object opened by Image.open as the input.
+    It returns the sepia processed image.
     """
+
     new_img = np.array(opened_image.convert("RGB"), dtype=np.float64)
     sepia_matrix = np.matrix([[0.390, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
@@ -25,6 +31,7 @@ def sepia(opened_image):
     return sepia_img
 
 
+#kevin table for the purpose of changing picture's color temperature
 kelvin_table = {
     1000: (255, 56, 0),
     1500: (255, 109, 0),
@@ -48,9 +55,13 @@ kelvin_table = {
 
 
 def temp(opened_image, k):
+
     """
-    ?????
+    This function takes an image object opened by Image.open and the expected 
+    color temperature as the input.
+    It returns the processed image with the expected color temperature.
     """
+
     r, g, b = kelvin_table[k]
     temp_matrix = (r / 255.0, 0.0, 0.0, 0.0,
                    0.0, g / 255.0, 0.0, 0.0,
@@ -60,9 +71,12 @@ def temp(opened_image, k):
 
 
 def paint(opened_image):
+
     """
-    ?????
+    This function takes an image object opened by Image.open as the input.
+    It returns the paint processed image.
     """
+
     new_img = np.array(opened_image.convert("RGB"))
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(
@@ -72,9 +86,12 @@ def paint(opened_image):
 
 
 def cannize(opened_image):
+
     """
-    ?????
+    This function takes an image object opened by Image.open as the input.
+    It returns the cannized image.
     """
+
     new_img = np.array(opened_image.convert("RGB"))
     img = cv2.GaussianBlur(new_img, (15, 15), 0)
     cannized_img = cv2.Canny(img, 100, 150)
@@ -82,9 +99,12 @@ def cannize(opened_image):
 
 
 def pencil(opened_image):
+
     """
-    ?????
+    This function takes an image object opened by Image.open as the input.
+    It returns two pencil-processed images: one gray, another colored.
     """
+
     new_img = np.array(opened_image.convert("RGB"))
     sk_gray, sk_color = cv2.pencilSketch(
         new_img, sigma_s=60, sigma_r=0.07, shade_factor=0.1)
@@ -92,9 +112,12 @@ def pencil(opened_image):
 
 
 def inv(opened_image):
+
     """
-    ?????
+    This function takes an image object opened by Image.open as the input.
+    It returns the color-inverted image.
     """
+
     new_img = np.array(opened_image.convert("RGB"))
     inv_img = cv2.bitwise_not(new_img)
     return inv_img
