@@ -53,7 +53,7 @@ def detect_smiles(opened_image):
     #only detect smile when finding face
     if len(result_face) > 0: 
         new_img = np.array(opened_image.convert("RGB")) 
-        smile = smile_cascade.detectMultiScale(new_img, 3, 75)
+        smile = smile_cascade.detectMultiScale(new_img, 2, 60)
         return smile
     else:
         return []
