@@ -4,8 +4,8 @@
 * from this Udemy course
 * https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
 *
-* we have referred to the official documentations of the libraries used in this code
-* we have referred to various online resources to solve error and warning information
+* we have utilized the official documentations of the libraries used in this code
+* we have utilized various online resources to solve error and warning information
 *
 * Cascade Classifiers are from OpenCV
 * https://github.com/opencv/opencv/tree/master/data/haarcascades
@@ -49,6 +49,10 @@ def main():
     if choice == "Start":  # Start page
         with open('use.txt') as file:
             st.text(file.read())
+            if image_file is not None: #show image preview
+                opened_image = Image.open(image_file) #open the image into image object
+                st.image(opened_image)
+
     elif choice == "About": # About page
         st.subheader("About the developers")
         st.markdown("Built by Bozen and Innocent with Streamlit")

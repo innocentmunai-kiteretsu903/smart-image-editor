@@ -1,3 +1,2 @@
-To use this app, first upload your image.
+To use this app, first upload your image. 
 Then navigate through the sidebar on the left to select activity.
-Enjoy!
