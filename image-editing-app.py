@@ -36,7 +36,7 @@ def change(): #fallback function when uploading new image
     st.session_state['enhancing'] = "Reset to Original"
 
 def main():
-    st.title('Swift Image Editor') #title
+    st.title('Smart Image Editor') #title
     st.text("Edit your images with a single click!") #slogan
 
     #sidebar
