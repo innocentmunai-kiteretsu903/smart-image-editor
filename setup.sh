@@ -5,9 +5,14 @@ echo "\
 email = \"innocentmunai@gmail.com\"\n\
 " > ~/.streamlit/credentials.toml
 
-echo "\
-[server]\n\
-headless = true\n\
-enableCORS=false\n\
-port = $PORT\n\
+echo "[theme]
+primaryColor='#a5c489'
+backgroundColor='#46484a'
+secondaryBackgroundColor='#3A8FB7'
+textColor='#e1e5eb'
+font='sans serif'
+[server]
+headless = true
+port = $PORT
+enableCORS = false
 " > ~/.streamlit/config.toml
