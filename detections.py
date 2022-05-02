@@ -22,7 +22,7 @@ def detect_faces(opened_image):
     """
 
     new_img = np.array(opened_image.convert("RGB"))
-    faces = face_cascade.detectMultiScale(new_img, 1.2, 6)
+    faces = face_cascade.detectMultiScale(new_img, 1.35, 7)
 
     # Draw rectangles around the faces
     for (x, y, w, h) in faces:  # 4 corners
