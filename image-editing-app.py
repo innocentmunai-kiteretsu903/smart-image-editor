@@ -24,6 +24,7 @@ from filters import sepia, temp, paint, cannize, pencil, inv
 # Hide the footer and/or the menu icon
 hide_streamlit_style = """
             <style>
+            #MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
             </style>
             """
