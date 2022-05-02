@@ -32,11 +32,12 @@ def main():
     st.text("Edit your images with a single click!") #slogan
 
     # Sidebar
-    activities = ["Start", "Enhance", "Filters", "AI Detection", "About"]  #sidebar options
-    choice = st.sidebar.selectbox('Select Activity', activities) #create sidebar
+    activities = ["Start", "Enhance", "Filters", "AI Detection", "About"] 
+    choice = st.sidebar.selectbox('Select Activity', activities) 
 
     # Uploader (callback to change() when uploading new image)
-    image_file = st.file_uploader("Image Uploader", type=["jpg", "png", "jpeg"], on_change=change)
+    image_file = st.file_uploader("Image Uploader", type=["jpg", "png", "jpeg"],\
+         on_change=change)
 
     # Start page
     if choice == "Start":  
