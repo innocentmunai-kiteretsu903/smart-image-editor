@@ -15,8 +15,8 @@ def sepia(opened_image):
     """This function takes an image object opened by Image.open as the input.
     It returns the sepia processed image.
     """
-    # Sepia matrix from: 
-    # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array
+    # Sepia matrix adpated from: 
+    # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array)
     new_img = np.array(opened_image.convert("RGB"))
     sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
@@ -26,7 +26,7 @@ def sepia(opened_image):
 
 
 #kevin table for the purpose of changing picture's color temperature
-#from:
+#adapted and inspired from:
 #https://stackoverflow.com/questions/11884544/setting-color-temperature-for-a-given-image-like-in-photoshop
 kelvin_table = {
     1000: (255, 56, 0),
@@ -82,7 +82,6 @@ def canny(opened_image):
     """This function takes an image object opened by Image.open as the input.
     It returns the canny image.
     """
-
     new_img = np.array(opened_image.convert("RGB"))
     canny_image = cv2.Canny(new_img, 100, 200)
     return canny_image
