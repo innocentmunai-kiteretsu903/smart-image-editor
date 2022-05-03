@@ -15,6 +15,8 @@ def sepia(opened_image):
     """This function takes an image object opened by Image.open as the input.
     It returns the sepia processed image.
     """
+    # Sepia matrix from: 
+    # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array
     new_img = np.array(opened_image.convert("RGB"))
     sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
@@ -24,6 +26,8 @@ def sepia(opened_image):
 
 
 #kevin table for the purpose of changing picture's color temperature
+#from:
+#https://stackoverflow.com/questions/11884544/setting-color-temperature-for-a-given-image-like-in-photoshop
 kelvin_table = {
     1000: (255, 56, 0),
     1500: (255, 109, 0),
@@ -64,6 +68,8 @@ def paint(opened_image):
     """This function takes an image object opened by Image.open as the input.
     It returns two paint processed image: one without edge, another with edge.
     """
+    #inspired by:
+    #https://learnopencv.com/non-photorealistic-rendering-using-opencv-python-c/
     new_img = np.array(opened_image.convert("RGB"))
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(
