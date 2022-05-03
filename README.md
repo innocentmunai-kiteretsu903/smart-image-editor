@@ -41,10 +41,10 @@ streamlit run /whereyoudownload/image-editing-app.py
 <img width="1225" alt="Snipaste_2022-05-02_20-16-40" src="https://user-images.githubusercontent.com/42286547/166345753-f154c430-0fbe-47b5-a63a-eab610f25604.png">
 
 ## Acknowledgement
-*We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules from this Udemy course:
+* We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules from this Udemy course:
 https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app 
-*We have utilized the official documentations of the libraries used in this code.
-*We have utilized various online resources to get inspiration and solve problems.
-*Color design inspired by Nippon Colors (https://nipponcolors.com/)
-*Cascade Classifiers are from OpenCV (https://github.com/opencv/opencv/tree/master/data/haarcascades)
+* We have utilized the official documentations of the libraries used in this code.
+* We have utilized various online resources to get inspiration and solve problems.
+* Color design inspired by Nippon Colors (https://nipponcolors.com/)
+* Cascade Classifiers are from OpenCV (https://github.com/opencv/opencv/tree/master/data/haarcascades)
 
