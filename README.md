@@ -4,6 +4,7 @@
 
 ## Introduction
 We have made a smart photo editor with a user-friendly GUI.
+This app is web-based, empowering cross-platform capability, and works well with both mouse and touch screen.
 
 ## Functionality
 **Enhancing**  
