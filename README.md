@@ -16,7 +16,7 @@ Painting, Oil Painting, Canny, Sepia, Pencil Gray, Pencil Color, Invert, Autumn,
 **AI Detection**  
 Faces, Eyes, Smile, Full body
 
-## The libries needed
+## The libraries used
 1. Streamlit:  To create the web-based GUI.
 2. Pillow: The library for basic adjustment of pictures
 3. OpenCv: The library that provides the machine learning capability to process pictures
