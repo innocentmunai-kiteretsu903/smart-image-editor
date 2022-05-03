@@ -16,6 +16,8 @@ def sepia(opened_image):
     """
     # Sepia matrix adpated from: 
     # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array
+    # inspiration & learning matrix conversion from:
+    # https://www.analyticsvidhya.com/blog/2021/07/an-interesting-opencv-application-creating-filters-like-instagram-and-picsart/
     new_img = np.array(opened_image.convert("RGB"))
     sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
@@ -24,7 +26,7 @@ def sepia(opened_image):
 
 
 #kevin table for the purpose of changing picture's color temperature
-#adapted and inspired from:
+#the table and temperature conversion function adapted and inspired from:
 #https://stackoverflow.com/questions/11884544/setting-color-temperature-for-a-given-image-like-in-photoshop
 kelvin_table = {
     1000: (255, 56, 0),
@@ -67,6 +69,7 @@ def paint(opened_image):
     """
     #inspired by:
     #https://learnopencv.com/non-photorealistic-rendering-using-opencv-python-c/
+    #https://github.com/packetsss/Image-Editor
     new_img = np.array(opened_image.convert("RGB"))
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(
