@@ -38,7 +38,8 @@ def main():
     choice = st.sidebar.selectbox('Select Activity', activities) 
 
     # Uploader (callback to change() when uploading new image)
-    image_file = st.file_uploader("Image Uploader", type=["jpg", "png", "jpeg"],\
+    ftype = ["jpg", "png", "jpeg", "bmp", "tif"]
+    image_file = st.file_uploader("Image Uploader", type = ftype,\
          on_change=change)
 
     # Start page
@@ -191,14 +192,14 @@ def main():
                     st.session_state['pimg'] = preview
                     st.sidebar.success("Auto Enhance saved!")
 
-            st.sidebar.write('Right-click on the image and select "Save Image"\
+            st.sidebar.write('Right-click on the image and select "Save Image" \
                  to download it.')
 
         elif choice == "Filters":
 
             # Create selectbox "Filters"
-            filters = ["Painting", "Oil Painting", "Canny","Sepia", "Pencil Gray", \
-                "Pencil Color", "Invert", "Autumn", "Cool Wind"]
+            filters = ["Painting", "Oil Painting", "Canny", "Sepia", \
+                "Pencil Gray", "Pencil Color", "Invert", "Autumn", "Cool Wind"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
             if st.sidebar.button("Apply the filter"):
                 if feature_choice == "Painting":
