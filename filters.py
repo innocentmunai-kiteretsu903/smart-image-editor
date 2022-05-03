@@ -107,7 +107,7 @@ def pencil(opened_image):
 
     new_img = np.array(opened_image.convert("RGB"))
     sk_gray, sk_color = cv2.pencilSketch(
-        new_img, sigma_s=60, sigma_r=0.07, shade_factor=0.1)
+        new_img, sigma_s=60, sigma_r=0.08, shade_factor=0.07)
     return sk_gray, sk_color
 
 
