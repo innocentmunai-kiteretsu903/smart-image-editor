@@ -15,7 +15,7 @@ def sepia(opened_image):
     It returns the sepia processed image.
     """
     # Sepia matrix adpated from: 
-    # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array)
+    # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array
     new_img = np.array(opened_image.convert("RGB"))
     sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
