@@ -23,7 +23,7 @@ Faces, Eyes, Smile, Full body
 5. os: handling system path
 
 ## Online demo
-Link: https://smart-image-editor.herokuapp.com　　
+Link: https://smart-image-editor.herokuapp.com<br/>
 Note: Due to the memory quota limitation of Heroku free version, uploading large image may cause crash. Thus, online version is currently only for demo purpose, and we recommend deploying this app locally.
 
 ## How to deploy locally
