@@ -1,11 +1,13 @@
 '''
 * Reference:
-* We have learned the basic ideas of using streamlit, opencv, and Pillow modules
+* We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules
 * from this Udemy course
 * https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
 *
-* we have utilized the official documentations of the libraries used in this code
-* we have utilized various online resources to solve error and warning information
+* We have utilized the official documentations of the libraries used in this code.
+* We have utilized various online resources to get inspiration and solve problems.
+*
+* Color design inspired by Nippon Colors (https://nipponcolors.com/)
 *
 * Cascade Classifiers are from OpenCV
 * https://github.com/opencv/opencv/tree/master/data/haarcascades
