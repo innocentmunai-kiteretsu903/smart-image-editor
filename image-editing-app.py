@@ -1,5 +1,5 @@
 '''
-* Reference:
+* Acknowledgement:
 * We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules
 * from this Udemy course
 * https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
