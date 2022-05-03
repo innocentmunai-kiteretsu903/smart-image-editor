@@ -19,7 +19,7 @@ from PIL import Image, ImageEnhance          # Image processing
 import numpy as np                           # To deal with arrays
 
 from detections import detect_eyes, detect_faces, detect_smiles, detect_fullbody
-from filters import sepia, temp, paint, cannize, pencil, inv
+from filters import sepia, temp, paint, canny, pencil, inv
 
 
 def change(): 
@@ -197,15 +197,18 @@ def main():
         elif choice == "Filters":
 
             # Create selectbox "Filters"
-            filters = ["Painting", "Cannize","Sepia", "Pencil Gray", \
+            filters = ["Painting", "Oil Painting", "Canny","Sepia", "Pencil Gray", \
                 "Pencil Color", "Invert", "Autumn", "Cool Wind"]
             feature_choice = st.sidebar.selectbox("Filters", filters)
             if st.sidebar.button("Apply the filter"):
                 if feature_choice == "Painting":
-                    result_img = paint(opened_image)
+                    result_img = paint(opened_image)[1]
                     st.image(result_img)
-                elif feature_choice == "Cannize":
-                    result_img = cannize(opened_image)
+                elif feature_choice == "Oil Painting":
+                    result_img = paint(opened_image)[0]
+                    st.image(result_img)
+                elif feature_choice == "Canny":
+                    result_img = canny(opened_image)
                     st.image(result_img)
                 elif feature_choice == "Sepia":
                     result_img = sepia(opened_image)

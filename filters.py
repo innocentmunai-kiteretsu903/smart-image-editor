@@ -3,32 +3,24 @@ import cv2
 
 
 def grayscale(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns the gray-scale processed image.
     """
-
     img = np.array(opened_image.convert("RGB"))
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return gray_image
 
 
 def sepia(opened_image):
-    
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns the sepia processed image.
     """
-
-    new_img = np.array(opened_image.convert("RGB"), dtype=np.float64)
-    sepia_matrix = np.matrix([[0.390, 0.769, 0.189],
+    new_img = np.array(opened_image.convert("RGB"))
+    sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
                               [0.272, 0.534, 0.131]])
-    sepia_img = cv2.transform(new_img, sepia_matrix)
-    sepia_img[np.where(sepia_img > 255)] = 255
-    sepia_img = np.array(sepia_img, dtype=np.uint8)
-    return sepia_img
+    sepia_image = cv2.transform(new_img, sepia_matrix)
+    return np.clip(sepia_image, 0, 255)
 
 
 #kevin table for the purpose of changing picture's color temperature
@@ -55,69 +47,55 @@ kelvin_table = {
 
 
 def temp(opened_image, k):
-
-    """
-    This function takes an image object opened by Image.open and the expected 
+    """This function takes an image object opened by Image.open and the expected 
     color temperature as the input.
     It returns the processed image with the expected color temperature.
     """
-
+    new_img = np.array(opened_image.convert("RGB"))
     r, g, b = kelvin_table[k]
-    temp_matrix = (r / 255.0, 0.0, 0.0, 0.0,
-                   0.0, g / 255.0, 0.0, 0.0,
-                   0.0, 0.0, b / 255.0, 0.0)
-    temp_image = opened_image.convert('RGB', temp_matrix)
+    temp_matrix = np.matrix([[r / 255, 0, 0],
+                            [0, g / 255, 0],
+                            [0, 0, b / 255]])
+    temp_image = cv2.transform(new_img, temp_matrix)
     return temp_image
 
 
 def paint(opened_image):
-
+    """This function takes an image object opened by Image.open as the input.
+    It returns two paint processed image: one without edge, another with edge.
     """
-    This function takes an image object opened by Image.open as the input.
-    It returns the paint processed image.
-    """
-
     new_img = np.array(opened_image.convert("RGB"))
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(
-        new_img, flags=2, sigma_s=64, sigma_r=0.3)
-    paint_img = cv2.bitwise_and(smooth, smooth, mask=edge)
-    return paint_img
+        new_img, flags=2, sigma_s=60, sigma_r=0.3)
+    paint_image = cv2.bitwise_and(smooth, smooth, mask=edge)
+    return smooth, paint_image
 
 
-def cannize(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
-    It returns the cannized image.
+def canny(opened_image):
+    """This function takes an image object opened by Image.open as the input.
+    It returns the canny image.
     """
 
     new_img = np.array(opened_image.convert("RGB"))
-    img = cv2.GaussianBlur(new_img, (15, 15), 0)
-    cannized_img = cv2.Canny(img, 100, 150)
-    return cannized_img
+    canny_image = cv2.Canny(new_img, 100, 200)
+    return canny_image
 
 
 def pencil(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns two pencil-processed images: one gray, another colored.
     """
-
     new_img = np.array(opened_image.convert("RGB"))
-    sk_gray, sk_color = cv2.pencilSketch(
+    pencil_gray, pencil_color = cv2.pencilSketch(
         new_img, sigma_s=60, sigma_r=0.08, shade_factor=0.07)
-    return sk_gray, sk_color
+    return pencil_gray, pencil_color
 
 
 def inv(opened_image):
-
-    """
-    This function takes an image object opened by Image.open as the input.
+    """This function takes an image object opened by Image.open as the input.
     It returns the color-inverted image.
     """
-
     new_img = np.array(opened_image.convert("RGB"))
-    inv_img = cv2.bitwise_not(new_img)
-    return inv_img
+    inv_image = cv2.bitwise_not(new_img)
+    return inv_image
