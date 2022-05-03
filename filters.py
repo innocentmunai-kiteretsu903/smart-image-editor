@@ -7,8 +7,7 @@ def grayscale(opened_image):
     It returns the gray-scale processed image.
     """
     img = np.array(opened_image.convert("RGB"))
-    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    return gray_image
+    return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 
 def sepia(opened_image):
@@ -21,8 +20,7 @@ def sepia(opened_image):
     sepia_matrix = np.matrix([[0.393, 0.769, 0.189],
                               [0.349, 0.686, 0.168],
                               [0.272, 0.534, 0.131]])
-    sepia_image = cv2.transform(new_img, sepia_matrix)
-    return np.clip(sepia_image, 0, 255)
+    return cv2.transform(new_img, sepia_matrix)
 
 
 #kevin table for the purpose of changing picture's color temperature
@@ -59,9 +57,8 @@ def temp(opened_image, k):
     r, g, b = kelvin_table[k]
     temp_matrix = np.matrix([[r / 255, 0, 0],
                             [0, g / 255, 0],
-                            [0, 0, b / 255]])
-    temp_image = cv2.transform(new_img, temp_matrix)
-    return temp_image
+                            [0, 0, b / 255]]) 
+    return cv2.transform(new_img, temp_matrix)
 
 
 def paint(opened_image):
@@ -83,8 +80,7 @@ def canny(opened_image):
     It returns the canny image.
     """
     new_img = np.array(opened_image.convert("RGB"))
-    canny_image = cv2.Canny(new_img, 100, 200)
-    return canny_image
+    return cv2.Canny(new_img, 100, 200)
 
 
 def pencil(opened_image):
@@ -92,9 +88,8 @@ def pencil(opened_image):
     It returns two pencil-processed images: one gray, another colored.
     """
     new_img = np.array(opened_image.convert("RGB"))
-    pencil_gray, pencil_color = cv2.pencilSketch(
+    return cv2.pencilSketch(
         new_img, sigma_s=60, sigma_r=0.08, shade_factor=0.07)
-    return pencil_gray, pencil_color
 
 
 def inv(opened_image):
@@ -102,5 +97,4 @@ def inv(opened_image):
     It returns the color-inverted image.
     """
     new_img = np.array(opened_image.convert("RGB"))
-    inv_image = cv2.bitwise_not(new_img)
-    return inv_image
+    return cv2.bitwise_not(new_img)
