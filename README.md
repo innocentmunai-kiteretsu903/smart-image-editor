@@ -37,4 +37,5 @@ streamlit run /whereyoudownload/image-editing-app.py
 5. The browser should automatically pop up. Or, you may enter the local host address from the information printed on the terminal
 
 ## Preview
-<img width="1410" alt="preview" src="https://user-images.githubusercontent.com/42286547/166344942-1c88969f-925b-406e-a2d2-322761b9e3e6.png">
+<img width="1225" alt="Snipaste_2022-05-02_20-16-40" src="https://user-images.githubusercontent.com/42286547/166345753-f154c430-0fbe-47b5-a63a-eab610f25604.png">
+
