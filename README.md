@@ -18,9 +18,9 @@ Faces, Eyes, Smile, Full body
 ## The libries needed
 1. Streamlit:  To create the web-based GUI.
 2. Pillow: The library for basic adjustment of pictures
-3. opencv (cv2): The library that provides the machine learning capability to process pictures
+3. OpenCv: The library that provides the machine learning capability to process pictures
 4. Numpy: The library that provides the computational capability to process the data extracted from pictures
-5. os: process with system path
+5. os: handling system path
 
 ## Online demo
 Link: https://smart-image-editor.herokuapp.com
