@@ -10,7 +10,7 @@ We have made a smart photo editor with a user-friendly GUI.
 Reset to Original, Gray-scale, Contrast, Brightness, Blurring, Sharpness, Auto Detail Enhance
 
 **Filter**  
-Painting, Cannize, Sepia, Pencil Gray, Pencil Color, Invert, Autumn, Cool Wind
+Painting, Oil Painting, Canny, Sepia, Pencil Gray, Pencil Color, Invert, Autumn, Cool Wind
 
 **AI Detection**  
 Faces, Eyes, Smile, Full body
