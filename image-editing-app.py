@@ -85,7 +85,7 @@ def main():
             # Create buttons of enhancing section
             # Button status store in st.session_state['enhancing']
             enhanceoptions = ["Reset to Original", "Gray-scale", "Contrast", \
-                "Brightness", "Blurring", "Sharpness", "Auto Detail Enhance"]
+                "Brightness", "Saturation", "Blurring", "Sharpness", "Auto Detail Enhance"]
             enhance_type = st.sidebar.radio("Enhance type", enhanceoptions, \
                  key='enhancing') 
     
@@ -150,6 +150,20 @@ def main():
                 if st.sidebar.button("Save Brightness"):
                     st.session_state['pimg'] = np.array(preview.convert("RGB"))
                     st.sidebar.success("Brightness saved!")
+            
+            #Saturation adjustment
+            elif enhance_type == "Saturation":
+                rate = st.sidebar.slider("Brightness", 0.1, 2.5, 1.0)
+                m_img = Image.fromarray(st.session_state['pimg'])
+                enhancer = ImageEnhance.Color(m_img)
+                preview = enhancer.enhance(rate)
+
+                st.image(preview)
+
+                # Save  button
+                if st.sidebar.button("Save Saturation"):
+                    st.session_state['pimg'] = np.array(preview.convert("RGB"))
+                    st.sidebar.success("Saturation saved!")
 
 
             # Blur filter
