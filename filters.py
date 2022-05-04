@@ -16,7 +16,7 @@ def sepia(opened_image):
     """
     # Sepia matrix adpated from: 
     # https://stackoverflow.com/questions/23802725/using-numpy-to-apply-a-sepia-effect-to-a-3d-array
-    # Author:eickenberg (https://stackoverflow.com/users/3489247/eickenberg)
+    # Author: eickenberg (https://stackoverflow.com/users/3489247/eickenberg)
     #
     # inspiration & learning matrix conversion from:
     # https://www.analyticsvidhya.com/blog/2021/07/an-interesting-opencv-application-creating-filters-like-instagram-and-picsart/
