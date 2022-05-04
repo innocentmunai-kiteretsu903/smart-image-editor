@@ -78,6 +78,7 @@ def paint(opened_image):
     # https://github.com/packetsss/Image-Editor/blob/main/scripts.py
     # License: https://github.com/packetsss/Image-Editor/blob/main/LICENSE
     # Author: Paul Pan (https://github.com/packetsss/)
+    # Copyright (c) 2021 Paul Pan
     new_img = np.array(opened_image.convert("RGB"))
     edge = cv2.bitwise_not(cv2.Canny(new_img, 200, 300))
     smooth = cv2.edgePreservingFilter(

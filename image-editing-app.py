@@ -16,6 +16,7 @@
 *
 * Cascade Classifiers are from OpenCV:
 * https://github.com/opencv/opencv/tree/master/data/haarcascades
+* license: https://github.com/opencv/opencv/blob/4.x/LICENSE
 '''
 
 import streamlit as st                       # For creating web app
