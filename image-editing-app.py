@@ -157,7 +157,6 @@ def main():
                 m_img = Image.fromarray(st.session_state['pimg'])
                 enhancer = ImageEnhance.Color(m_img)
                 preview = enhancer.enhance(rate)
-
                 st.image(preview)
 
                 # Save  button
