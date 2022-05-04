@@ -1,6 +1,10 @@
 '''
 * Acknowledgement:
-* We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules
+* This is a final project of CS 32 instructed by Prof. Michael D. Smith
+* Course link: https://scholar.harvard.edu/mikesmith/classes/cs-32-computational-thinking-and-problem-solving
+* Professor link: https://scholar.harvard.edu/mikesmith
+*
+* We have additionally learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules
 * from this Udemy course:
 * https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app
 * Instructor: Gasmi Haithem (https://www.udemy.com/user/gasmi-haithem-2/)

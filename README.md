@@ -41,6 +41,9 @@ streamlit run /whereyoudownload/image-editing-app.py
 <img width="1225" alt="Snipaste_2022-05-02_20-16-40" src="https://user-images.githubusercontent.com/42286547/166345753-f154c430-0fbe-47b5-a63a-eab610f25604.png">
 
 ## Acknowledgement
+* This is a final project of CS 32 instructed by Professor Michael D. Smith
+* Course link: https://scholar.harvard.edu/mikesmith/classes/cs-32-computational-thinking-and-problem-solving
+* Professor link: https://scholar.harvard.edu/mikesmith
 * We have learned the basic ideas of using Streamlit, OpenCv, Image, and Pillow modules from this Udemy course: https://www.udemy.com/course/build-a-web-app-with-python-and-opencv-image-editing-app 
 * Instructor: Gasmi Haithem (https://www.udemy.com/user/gasmi-haithem-2/)
 * We have utilized the official documentations of the libraries used in this code.
