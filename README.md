@@ -38,9 +38,9 @@ streamlit run /whereyoudownload/image-editing-app.py
 5. The browser should automatically pop up. Or, you may enter the local host address from the information printed on the terminal
 
 ## Preview
-<img width="1170" alt="1" src="https://user-images.githubusercontent.com/42286547/166741095-a12d3a14-79d8-49cf-ae08-cbb4aaffa8fa.png">
+<img width="1126" alt="111" src="https://user-images.githubusercontent.com/42286547/166741404-0ba21334-8fe8-4b56-9872-1a1908698a92.png">
 <br>
-<img width="1169" alt="Snipaste_2022-05-04_12-56-36" src="https://user-images.githubusercontent.com/42286547/166741098-9636d481-550b-4e53-8354-7ed8699a4d20.png">
+<img width="1139" alt="222" src="https://user-images.githubusercontent.com/42286547/166741402-c6754b33-8ab3-4616-a52a-0b2e48ec1bcd.png">
 
 ## Acknowledgement
 * This is a final project of CS 32 instructed by Professor Michael D. Smith
