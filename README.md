@@ -8,7 +8,7 @@ This app is web-based, empowering cross-platform capability, and works well with
 
 ## Functionality
 **Enhancing**  
-Reset to Original, Gray-scale, Contrast, Brightness, Blurring, Sharpness, Auto Detail Enhance
+Reset to Original, Gray-scale, Contrast, Brightness, Saturation, Blurring, Sharpness, Auto Detail Enhance
 
 **Filter**  
 Painting, Oil Painting, Canny, Sepia, Pencil Gray, Pencil Color, Invert, Autumn, Cool Wind
@@ -38,7 +38,9 @@ streamlit run /whereyoudownload/image-editing-app.py
 5. The browser should automatically pop up. Or, you may enter the local host address from the information printed on the terminal
 
 ## Preview
-<img width="1225" alt="Snipaste_2022-05-02_20-16-40" src="https://user-images.githubusercontent.com/42286547/166345753-f154c430-0fbe-47b5-a63a-eab610f25604.png">
+<img width="1170" alt="1" src="https://user-images.githubusercontent.com/42286547/166741095-a12d3a14-79d8-49cf-ae08-cbb4aaffa8fa.png">
+<br>
+<img width="1169" alt="Snipaste_2022-05-04_12-56-36" src="https://user-images.githubusercontent.com/42286547/166741098-9636d481-550b-4e53-8354-7ed8699a4d20.png">
 
 ## Acknowledgement
 * This is a final project of CS 32 instructed by Professor Michael D. Smith
