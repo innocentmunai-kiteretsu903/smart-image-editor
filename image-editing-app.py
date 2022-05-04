@@ -153,6 +153,9 @@ def main():
             
             #Saturation adjustment
             elif enhance_type == "Saturation":
+                # adapted from:
+                # https://stackoverflow.com/questions/16070078/change-saturation-with-imagekit-pil-or-pillow
+                # Author: abarnert (https://stackoverflow.com/users/908494/abarnert)
                 rate = st.sidebar.slider("Brightness", 0.1, 2.5, 1.0)
                 m_img = Image.fromarray(st.session_state['pimg'])
                 enhancer = ImageEnhance.Color(m_img)
